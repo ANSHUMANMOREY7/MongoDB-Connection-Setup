@@ -6,10 +6,11 @@ const app = express()
 
 app.use(express.json())
 
+//POST API -> CREATE NOTES
 app.post('/notes', async(req , res)=>{
 
     const data = req.body
-     await noteModel.create({
+     await noteModel.create({      // CREATE() creates the DATABSE for Notes
         title : data.title,
         description : data.description,
     })
@@ -19,6 +20,20 @@ app.post('/notes', async(req , res)=>{
     })
 
 })
+
+//GET API -> FETCH NOTES FROM SERVER / DATABASE
+app.get('/notes', async(req , res)=>{
+
+    const notes = await noteModel.find()   // FIND() will scan and fetch all the NOTES in DATABASE in[] format return in [] only
+
+    res.status(201).json({
+        notes : notes ,
+        message : "Notes Fetched Successfully !!!"
+    })
+
+})
+
+
 
 module.exports=app
 
