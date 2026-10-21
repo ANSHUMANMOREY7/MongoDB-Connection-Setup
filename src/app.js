@@ -47,6 +47,18 @@ app.delete('/notes/:id',async(req , res)=>{
 
 })
 
+//PATCH => used to UPDATE a NOTES or NOTE using ID 
+app.patch('/notes/:id',async (req , res)=>{
 
+    const id = req.params.id
+    const description = req.body.description
+    const title = req.body.title
+    await noteModel.findOneAndUpdate({ _id : id },{ description : description })
+    await noteModel.findOneAndUpdate({ _id : id },{ title : title })
+
+    res.status(201).json({
+        message : "Notes Updated Successfully !!!"
+    })
+})
 module.exports=app
 
