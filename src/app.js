@@ -33,6 +33,19 @@ app.get('/notes', async(req , res)=>{
 
 })
 
+//DELETE API => DELETE THE DATABASE USING ID 
+app.delete('/notes/:id',async(req , res)=>{
+
+    const id =req.params.id 
+    await noteModel.findOneAndDelete ({ 
+       _id : id
+    })
+
+    res.status(201).json({
+         message : "Notes Deleted Successfully !!!"
+    })
+
+})
 
 
 module.exports=app
